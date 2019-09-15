@@ -24,7 +24,8 @@ class Solution:
             res += [item + [num] for item in res]
         return res
 
-    def exist(self, board: List[List[str]], word: str) -> bool:
+    #def exist(self, board: List[List[str]], word: str) -> bool:
+
 
 
 if __name__ == "__main__":

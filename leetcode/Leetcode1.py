@@ -71,3 +71,17 @@ class Solution:
             while nums.count(val) > 2:
                 nums.remove(val)
         return len(nums)
+
+    # 33.Search in Rotated Sorted Array,二分查找
+    def search(self, nums: List[int], target: int) -> int:
+        low, high = 0, len(nums) - 1
+        while low < high:
+            mid = (low+high) // 2
+            # nums[0] <= target <= nums[i]
+            #            target <= nums[i] < nums[0]
+            #                      nums[i] < nums[0] <= target
+            if (nums[0] > target) ^ (nums[0] > nums[mid]) ^ (target > nums[mid]):
+                low = mid+1
+            else:
+                high = mid
+        return low if target in nums[low:low+1] else -1

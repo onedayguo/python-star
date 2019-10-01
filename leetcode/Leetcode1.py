@@ -27,11 +27,7 @@ class Solution:
             res += [item + [num] for item in res]
         return res
 
-    '''79.word search
-    Given a 2D board and a word, find if the word exists in the grid.
-    The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or
-    vertically neighboring. The same letter cell may not be used more than once.
-    '''
+    # 79.二维字符数组中，上下左右寻找目标字符串
     def exist(self, board, word):
         if not board:
             return False

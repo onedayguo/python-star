@@ -153,3 +153,53 @@ class Solution:
                 pre = pre.next
                 head = head.next
         return dummy.next
+
+    # 84.柱状图最大矩形面积,相邻同一高度下组成矩形面积最大
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        """
+        栈维护了一个数组升序的索引，在添加新索引之前弹出比它高的建筑物，弹出的建筑物代表了高度，
+        右边界是新建筑，左边界是栈顶建筑物，然后更新矩形面积最大值;
+        while循环至少会执行一次，因为heights中【.....，0】满足循环条件
+        The stack maintain the indexes of buildings with ascending height.
+        Before adding a new building pop the building who is taller than the
+        new one. The building popped out represent the height of a rectangle with the new
+         building as the right boundary and the current stack top as the left boundary.
+         Calculate its area and update ans of maximum area. Boundary is handled using dummy buildings.
+        """
+        heights.append(0)
+        stack = [-1]
+        ans = 0
+        for i in range(len(heights)):
+            # 第一轮 heights = [....,0]
+            while heights[i] < heights[stack[-1]]:
+                h = heights[stack.pop()]
+                w = i - stack[-1] - 1
+                ans = max(ans, h*w)
+            stack.append(i)
+        heights.pop()
+        return ans
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

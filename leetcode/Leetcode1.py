@@ -2,8 +2,8 @@
 # --coding:utf-8
 
 from typing import List
+from leetcode import ListNode
 
-from past.builtins import xrange
 
 
 class Solution:
@@ -115,3 +115,21 @@ class Solution:
                     right = mid - 1
         return False
 
+    # 82 Remove Duplicates from Sorted List II，去除链表中重复的节点，返回无重复节点链表
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        # 虚拟头结点作为返回节点，pre节点指向结果链表的末位节点
+        dummy = pre = ListNode(0)
+        dummy.next = head
+        # 当前节点和后节点不空
+        while head and head.next:
+            # 发现重复值，while循环判断直到不是重复值
+            if head.val == head.next.val:
+                while head and head.next and head.val == head.next.val:
+                    head = head.next
+                head = head.next
+                pre.next = head
+            # 不重复，当前指针后移
+            else:
+                pre = pre.next
+                head = head.next
+        return dummy.next

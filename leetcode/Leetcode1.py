@@ -138,6 +138,7 @@ class Solution:
     def deleteDuplicates1(self, head: ListNode) -> ListNode:
         # 虚拟头结点作为返回节点，pre节点指向结果链表的末位节点
         dummy = pre = ListNode(0)
+        # [1],考虑单个节点情况
         dummy.next = head
         # 当前节点和后节点不空
         while head and head.next:

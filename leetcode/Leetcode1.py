@@ -85,3 +85,33 @@ class Solution:
             else:
                 high = mid
         return low if target in nums[low:low+1] else -1
+
+    # 81. Search in Rotated Sorted Array II，二分查找
+    def search81(self, nums: List[int], target: int) -> bool:
+        """左中右 3个指针，把数组当做有序数组
+            二分查找
+        """
+        left, right = 0, len(nums)-1
+        while left <= right:
+            mid = (right+left) // 2
+            if nums[mid] == target:
+                return True
+            # 有序数组，左指针=中间值，则让左指针后移
+            while left < mid and nums[left] == nums[mid]:  # tricky part
+                left += 1
+            # 前半段有序
+            if nums[left] <= nums[mid]:
+                # 目标值在前半段
+                if nums[left] <= target < nums[mid]:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            # 后半段有序
+            else:
+                # 目标值在后半段
+                if nums[mid] < target <= nums[right]:
+                    left = mid + 1
+                else:
+                    right = mid - 1
+        return False
+

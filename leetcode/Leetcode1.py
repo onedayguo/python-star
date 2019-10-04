@@ -179,7 +179,42 @@ class Solution:
         heights.pop()
         return ans
 
+    # 85. 二维字符1数组，查找最大矩形面积
+    def maximalRectangle(self, matrix: List[List[str]]) -> int:
+        """
+        与84题最大柱形面积思想相似，矩阵每一行视为地面上的建筑物，建筑的高度就是从那行往上连续1的个数
+        结果就和84题建筑为最大矩形面积一样了
+        The solution is based on largest rectangle in histogram solution.
+        Every row in the matrix is viewed as the ground with some buildings on it.
+        The building height is the count of consecutive 1s from that row to above rows.
+        The rest is then the same as this solution for largest rectangle in histogram
+        """
+        if not matrix or not matrix[0]:
+            return 0
+        # 列
+        n = len(matrix[0])
+        # 长度为 n+1 的列表，表示矩形的高，多出的1是填充列表，计算时列表始终不空
+        height = [0] * (n+1)
+        ans = 0
+        for row in matrix:
+            # 统计行中1的个数，height[i]存的是到第i列遇到1的总和
+            for i in range(n):
+                # height[i] += (1 if row[i] == '1' else 0)
+                height[i] = height[i] + 1 if row[i] == '1' else 0
+            stack = [-1]
+            for i in range(n+1):
+                """
+                栈维护了一个数组升序的索引，在添加新索引之前弹出比它高的建筑物，弹出的建筑物代表了高度，
+                右边界是新建筑，左边界是栈顶建筑物，然后更新矩形面积最大值;
+                while循环至少会执行一次，因为height中【.....，0】满足循环条件
+                """
+                while height[i] < height[stack[-1]]:
+                    h = height[stack.pop()]
+                    w = i - 1 - stack[-1]
+                    ans = max(ans, h*w)
+                stack.append(i)
 
+        return ans
 
 
 

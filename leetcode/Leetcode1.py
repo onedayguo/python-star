@@ -216,6 +216,27 @@ class Solution:
 
         return ans
 
+    # 86.Partition List 排序链表，将小于目标值得节点放到前面，相对顺序不变
+    def partition(self, head:ListNode, x:int) -> ListNode:
+        """
+        使用两个链表实现，小于定值的链表，大于定值的链表，最后连接两个链表
+        """
+        smallHead = small = ListNode(0)
+        bigHead = big = ListNode(0)
+        while head:
+            if head.val < x:
+                small.next = head
+                small = small.next
+            else:
+                big.next = head
+                big = big.next
+            head = head.next
+        big.next = None
+        small.next = bigHead.next
+        return smallHead.next
+
+
+
 
 
 

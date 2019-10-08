@@ -5,7 +5,6 @@ from typing import List
 from leetcode import ListNode
 
 
-
 class Solution:
     # 78. Subsets
     # Given a set of distinct integers, nums, return all possible subsets (the power set).
@@ -48,7 +47,7 @@ class Solution:
         board[i][j] = "#"  # avoid visit agian
         # check whether can find "word" along one direction
         res = self.dfs(board, i + 1, j, word[1:]) or self.dfs(board, i - 1, j, word[1:]) \
-        or self.dfs(board, i, j + 1, word[1:]) or self.dfs(board, i, j - 1, word[1:])
+              or self.dfs(board, i, j + 1, word[1:]) or self.dfs(board, i, j - 1, word[1:])
         board[i][j] = tmp
         return res
 
@@ -58,14 +57,14 @@ class Solution:
         if len(nums) < 3:
             return len(nums)
         pos = 1
-        for i in range(1, len(nums)-1):
-            if nums[i-1] != nums[i+1]:
+        for i in range(1, len(nums) - 1):
+            if nums[i - 1] != nums[i + 1]:
                 nums[pos] = nums[i]
                 pos += 1
         nums[pos] = nums[-1]
-        return pos+1
+        return pos + 1
 
-    def removeDuplicates2(self, nums:List[int]) -> int:
+    def removeDuplicates2(self, nums: List[int]) -> int:
         # 统计每个字符的数量，同一字符多于2个的去除
         for val in set(nums):
             while nums.count(val) > 2:
@@ -76,24 +75,24 @@ class Solution:
     def search(self, nums: List[int], target: int) -> int:
         low, high = 0, len(nums) - 1
         while low < high:
-            mid = (low+high) // 2
+            mid = (low + high) // 2
             # nums[0] <= target <= nums[i]
             #            target <= nums[i] < nums[0]
             #                      nums[i] < nums[0] <= target
             if (nums[0] > target) ^ (nums[0] > nums[mid]) ^ (target > nums[mid]):
-                low = mid+1
+                low = mid + 1
             else:
                 high = mid
-        return low if target in nums[low:low+1] else -1
+        return low if target in nums[low:low + 1] else -1
 
     # 81. Search in Rotated Sorted Array II，二分查找
     def search81(self, nums: List[int], target: int) -> bool:
         """左中右 3个指针，把数组当做有序数组
             二分查找
         """
-        left, right = 0, len(nums)-1
+        left, right = 0, len(nums) - 1
         while left <= right:
-            mid = (right+left) // 2
+            mid = (right + left) // 2
             if nums[mid] == target:
                 return True
             # 有序数组，左指针=中间值，则让左指针后移
@@ -174,7 +173,7 @@ class Solution:
             while heights[i] < heights[stack[-1]]:
                 h = heights[stack.pop()]
                 w = i - stack[-1] - 1
-                ans = max(ans, h*w)
+                ans = max(ans, h * w)
             stack.append(i)
         heights.pop()
         return ans
@@ -194,7 +193,7 @@ class Solution:
         # 列
         n = len(matrix[0])
         # 长度为 n+1 的列表，表示矩形的高，多出的1是填充列表，计算时列表始终不空
-        height = [0] * (n+1)
+        height = [0] * (n + 1)
         ans = 0
         for row in matrix:
             # 统计行中1的个数，height[i]存的是到第i列遇到1的总和
@@ -202,7 +201,7 @@ class Solution:
                 # height[i] += (1 if row[i] == '1' else 0)
                 height[i] = height[i] + 1 if row[i] == '1' else 0
             stack = [-1]
-            for i in range(n+1):
+            for i in range(n + 1):
                 """
                 栈维护了一个数组升序的索引，在添加新索引之前弹出比它高的建筑物，弹出的建筑物代表了高度，
                 右边界是新建筑，左边界是栈顶建筑物，然后更新矩形面积最大值;
@@ -211,13 +210,13 @@ class Solution:
                 while height[i] < height[stack[-1]]:
                     h = height[stack.pop()]
                     w = i - 1 - stack[-1]
-                    ans = max(ans, h*w)
+                    ans = max(ans, h * w)
                 stack.append(i)
 
         return ans
 
     # 86.Partition List 排序链表，将小于目标值得节点放到前面，相对顺序不变
-    def partition(self, head:ListNode, x:int) -> ListNode:
+    def partition(self, head: ListNode, x: int) -> ListNode:
         """
         使用两个链表实现，小于定值的链表，大于定值的链表，最后连接两个链表
         """
@@ -235,27 +234,16 @@ class Solution:
         small.next = bigHead.next
         return smallHead.next
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    # 87. Scramble String杂乱字符串，判断一个字符串是否是另外一个字符串的变形
+    def isScramble(self, s1: str, s2: str) -> bool:
+        n, m = len(s1), len(s2)
+        if n != m or sorted(s1) != sorted(s2):
+            return False
+        if n < 4 or s1 == s2:
+            return True
+        f = self.isScramble
+        for i in range(1, n):
+            if f(s1[:i], s2[:i]) and f(s1[i:], s2[i:]) or \
+                    f(s1[:i], s2[-i:]) and f(s1[i:], s2[:-i]):
+                return True
+        return False

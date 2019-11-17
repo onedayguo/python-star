@@ -46,3 +46,44 @@ sort（）
     单独的一个功能，经常使用，将实现该功能的代码放在一起，起个别名
 
 '''
+
+import numpy as np
+# 定义数据集
+data_set = np.array([1, 2, 5, 9, 7])
+print(f'data_set={data_set}')
+# 均值
+mean = np.mean(data_set)
+print(f'mean of data_set = {mean}')
+# 方差 & 标准差
+variance = np.var(data_set)
+standard_deviation = np.std(data_set)
+print(f'variance of data_set = {variance}')
+print(f'standard deviation of data_set = {standard_deviation}')
+
+# 样本方差 & 样本标准差,ddof代表无偏差
+variance1 = np.var(data_set, ddof=1)
+standard_deviation1 = np.std(data_set,ddof=1)
+print(f'variance1 of data_set = {variance1}')
+print(f'standard deviation of data_set = {standard_deviation1}')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,6 @@
 #made by kami
 #2019/4/20
-from numpy import *
+# from numpy import *
 import math
 import copy
 import numpy as np
@@ -22,7 +22,7 @@ def ini_kmeans_data(sigma, init_mu, mix, N):
 
 # 求点之间距离
 def distance(point1, point2):
-    return sqrt(power(point1 - point2, 2))
+    return np.sqrt(np.power(point1 - point2, 2))
 
 
 def new_center(data_array):
@@ -40,14 +40,14 @@ def KMeans(data,iter_number,diff):
     # 选初始质心,随机选择点的下标
     index_center = []
     N = len(data)
-    index_center.append(random.randint(0, N-1))
-    index_center.append(random.randint(0,N-1))
+    index_center.append(np.random.randint(0, N-1))
+    index_center.append(np.random.randint(0, N-1))
     dataA = []
     dataB = []
 
     for i in range(N):
-        disA = distance(data[i],data[index_center[0]])  # 距离质心A的距离
-        disB = distance(data[i],data[index_center[1]])  # 距离质心B的距离
+        disA = distance(data[i], data[index_center[0]])  # 距离质心A的距离
+        disB = distance(data[i], data[index_center[1]])  # 距离质心B的距离
         if disA <= disB:
             dataA.append(data[i])
         else:
@@ -71,15 +71,15 @@ def KMeans(data,iter_number,diff):
                 dataB.append(data[i])
 
         if (abs(new_A_center - last_A_center)+abs(new_B_center-last_B_center)) < diff:
-            print("迭代次数：", it+1, "均值A：", mean(dataA), "方差：",std(dataA), "混合系数：", len(dataA) / N)
-            print("        ：", it+1, "均值B：", mean(dataB), "方差：",std(dataB), "混合系数：", len(dataB) / N)
+            print("迭代次数：", it+1, "均值A：", np.mean(dataA), "方差：",np.std(dataA), "混合系数：", len(dataA) / N)
+            print("        ：", it+1, "均值B：", np.mean(dataB), "方差：",np.std(dataB), "混合系数：", len(dataB) / N)
             return dataA,dataB,it+1
 
         last_A_center = copy.deepcopy(new_A_center)
         last_B_center = copy.deepcopy(new_B_center)
         it_1 =it+1
-        print("迭代次数：",it+1,"均值A：",mean(dataA),"方差：","混合系数：",len(dataA) / N)
-        print("        ：",it+1, "均值B：", mean(dataB), "方差：", "混合系数：", len(dataB) / N)
+        print("迭代次数：",it+1,"均值A：",np.mean(dataA),"方差：","混合系数：",len(dataA) / N)
+        print("        ：",it+1, "均值B：", np.mean(dataB), "方差：", "混合系数：", len(dataB) / N)
     return dataA,dataB,it_1
 
 
@@ -93,16 +93,16 @@ if __name__ == "__main__":
     iter_number = 100
     diff = 0.00001
 
-    data = load(sys.argv[1])
+    data = np.load(sys.argv[1])
     N = len(data)
-    dataA ,dataB,iter_final = KMeans(data,iter_number,diff)
+    dataA , dataB, iter_final = KMeans(data,iter_number,diff)
 
     mixA = len(dataA) / N
     mixB = len(dataB) / N
-    meanA = mean(dataA)
-    meanB = mean(dataB)
-    stdA = std(dataA)
-    stdB = std(dataB)
+    meanA = np.mean(dataA)
+    meanB = np.mean(dataB)
+    stdA = np.std(dataA)
+    stdB = np.std(dataB)
     print("最终迭代次数与结果：",iter_final)
     print("均值A：", meanA, "方差：",stdA, "混合系数：", mixA)
     print("均值B：", meanB, "方差：", stdB,"混合系数：", mixB)

@@ -69,7 +69,7 @@ def run(Sigma, Mu1, Mu2, k, N, iter_num, Epsilon):
         if sum(abs(Mu - old_Mu)) < Epsilon:
             break
 if __name__ == '__main__':
-    run(6, 25, 65, 2, 50000, 100, 0.0001)
+    run(6, 25, 65, 2, 500000, 100, 0.0001)
     print(alpha)
     plt.hist(data[0, :], 100)
     plt.grid(True)

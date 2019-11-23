@@ -15,4 +15,3 @@ for i in range(9):
     plt.title("Digit: {}".format(y_train[i]))
     plt.xticks([])
     plt.yticks([])
-fig

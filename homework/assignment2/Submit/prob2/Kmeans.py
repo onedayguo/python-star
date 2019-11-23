@@ -25,11 +25,29 @@ label = KMeans(n_clusters=2).fit_predict(imgData)
 
 # get the label of each pixel
 label = label.reshape([row, col])
-print(label)
 # create a new image to save the result of K-Means
 pic_new = image.new("P", (row, col))
 # according to the label to add the pixel
+new_pixel = []
+red = (255, 0, 0)
+green = (0, 255, 0)
+blue = (0, 0, 255)
+Sienna4 = (139, 71, 38)
+Yellow = (255, 255, 0)
 for i in range(row):
     for j in range(col):
-        pic_new.putpixel((i, j), int(256 / (label[i][j] + 1)))
+        pixel = int(256 / (label[i][j] + 1))
+        new_pixel.append(pixel)
+        if label[i][j] == 0:
+            pic_new.putpixel((i, j), red)
+        elif label[i][j] == 1:
+            pic_new.putpixel((i, j), green)
+        # elif label[i][j] == 2:
+        #     pic_new.putpixel((i, j), blue)
+        else:
+            pic_new.putpixel((i, j), (255, 255, 255))
 pic_new.show()
+# print(new_pixel)
+print(new_pixel.count(256))
+print(new_pixel.count(128))
+print(len(new_pixel))

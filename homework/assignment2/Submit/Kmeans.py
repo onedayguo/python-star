@@ -1,6 +1,8 @@
 
 import scipy.io as scio
 import numpy as np
+import matplotlib as mpl
+mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 from scipy.spatial.distance import cdist
@@ -8,7 +10,7 @@ from sklearn import metrics  #导入sklearn效果评估模块
 
 
 def get_data_from_matfile():
-    data_path = "E:/CS5487/Assigment2/cluster_data.mat"
+    data_path = "E:/CS5487/Assignment2/PA2-cluster-data/cluster_data.mat"
     data = scio.loadmat(data_path)
     dataA_X = np.transpose(data['dataA_X'])  # (200,2)
     dataA_Y = np.transpose(data['dataA_Y'])  # (200,1)
@@ -59,24 +61,29 @@ def k_means(data_x, data_y, k_cluster, iteration, error):
 
 
 
+
 if __name__ == "__main__":
     dataA_X, dataA_Y, dataB_X, dataB_Y, dataC_X, dataC_Y = get_data_from_matfile()
     estimator = KMeans(n_clusters=4)
     # 预测类别标签结果 # fit_predict表示拟合+预测，也可以分开写
-    res = estimator.fit_predict(dataA_X)
+    res = estimator.fit_predict(dataC_X)
     label = estimator.labels_
     # 各个类别的聚类中心值
     centroids = estimator.cluster_centers_
     # # 聚类中心均值向量的总和
     inertia = estimator.inertia_
-    for i in range(len(dataA_X)):
+    row = len(dataC_X)
+    for i in range(row):
         if int(label[i]) == 0:
-            plt.scatter(dataA_X[i][0], dataA_X[i][1], color='red')
+            plt.scatter(dataC_X[i][0], dataC_X[i][1], marker='*', color='red')
         if int(label[i]) == 1:
-            plt.scatter(dataA_X[i][0], dataA_X[i][1], color='black')
+            plt.scatter(dataC_X[i][0], dataC_X[i][1], marker='o', color='black')
         if int(label[i]) == 2:
-            plt.scatter(dataA_X[i][0], dataA_X[i][1], color='blue')
+            plt.scatter(dataC_X[i][0], dataC_X[i][1], marker='+', color='blue')
         if int(label[i]) == 3:
-            plt.scatter(dataA_X[i][0], dataA_X[i][1], color='green')
+            plt.scatter(dataC_X[i][0], dataC_X[i][1], marker='^', color='green')
+    plt.xlabel("x")
+    plt.ylabel("y")
+    plt.title("dataC_X-Kmeans-k=4 ")
     plt.grid(True)
     plt.show()

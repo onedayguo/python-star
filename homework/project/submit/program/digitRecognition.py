@@ -106,10 +106,8 @@ def maxNum(X, a, b):
 
 # --------------------------------main function-----------------------------
 if __name__ == "__main__":
-    # fx = 'data/test_feature.txt'
-    # fy = 'data/test_label.txt'
-    fx = 'challenge/cdigits_digits_vec.txt'
-    fy = 'data/cdigits_digits_labels.txt'
+    fx = 'data/test_feature.txt'
+    fy = 'data/test_label.txt'
     test_X = loadData(fx)
     test_Y = loadData(fy)
 

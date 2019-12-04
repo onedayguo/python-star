@@ -49,23 +49,45 @@ def saveData(X, file):
 
 # --------------------------------main function-----------------------------
 if __name__ == "__main__":
-    fx = 'data/digits4000_digits_vec.txt'
-    fy = 'data/digits4000_digits_labels.txt'
+    # 训练数据按照 4:1比例分别为训练数据和测试数据，数据集总量为4000样本minist手写数字
+    # fx = 'data/digits4000_digits_vec.txt'
+    # fy = 'data/digits4000_digits_labels.txt'
+    # feature = loadDataFeature(fx)
+    # label = loadDataLabel(fy)
+    # print(feature.shape)
+    # '''
+	# for i in range(20):
+	# 	for j in range(20):
+	# 		print('%d'%label[i*28+j,0],end=' ')
+	# 	print('')
+	# '''
+    # X_train, X_test, y_train, y_test = train_test_split(feature, label, test_size=0.2, random_state=42)
+    # f = 'data/train_feature.txt'
+    # saveData(X_train, f)
+    # f = 'data/train_label.txt'
+    # saveData(y_train, f)
+    # f = 'data/test_feature.txt'
+    # saveData(X_test, f)
+    # f = 'data/test_label.txt'
+    # saveData(y_test, f)
+
+    fx = 'challenge/cdigits_digits_vec.txt'
+    fy = 'challenge/cdigits_digits_labels.txt'
     feature = loadDataFeature(fx)
     label = loadDataLabel(fy)
     print(feature.shape)
     '''
-	for i in range(20):
-		for j in range(20):
-			print('%d'%label[i*28+j,0],end=' ')
-		print('')
-	'''
+    for i in range(20):
+    for j in range(20):
+    print('%d'%label[i*28+j,0],end=' ')
+    print('')
+    '''
     X_train, X_test, y_train, y_test = train_test_split(feature, label, test_size=0.2, random_state=42)
-    f = 'data/train_feature.txt'
+    f = 'challenge/train_feature.txt'
     saveData(X_train, f)
-    f = 'data/train_label.txt'
+    f = 'challenge/train_label.txt'
     saveData(y_train, f)
-    f = 'data/test_feature.txt'
+    f = 'challenge/test_feature.txt'
     saveData(X_test, f)
-    f = 'data/test_label.txt'
+    f = 'challenge/test_label.txt'
     saveData(y_test, f)

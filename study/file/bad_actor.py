@@ -1,13 +1,7 @@
 import pandas as pd
 
 banFile = pd.read_excel('banactor.xlsx')
-banNameData = banFile.values.tolist()
-banNames = []
-for banName in banNameData:
-    banNames.append(banName[1])
-# print(result)
-# for actor_name in result[0:]:
-# print(actor_name)
+banNames = banFile.艺人.values
 
 filmFile = pd.read_csv('fee_film_all.csv', header=0, index_col='album_id')
 directorAndActor = filmFile.loc[:, ['director', 'actor']]
